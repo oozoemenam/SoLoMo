@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SoLoMo.Data;
+using SoLoMo.Models;
 using SoLoMo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddDbContext<InvoiceDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+// builder.Services.Configure<DatabaseOption>(builder.Configuration.GetSection(DatabaseOption.SectionName));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
