@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoLoMo.Data;
 
@@ -11,9 +12,11 @@ using SoLoMo.Data;
 namespace SoLoMo.Migrations
 {
     [DbContext(typeof(InvoiceDbContext))]
-    partial class InvoiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240929134442_AddInvoiceItem")]
+    partial class AddInvoiceItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +73,7 @@ namespace SoLoMo.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("672018ad-cc13-4e0b-9559-3be306205a76"),
+                            Id = new Guid("e992d9d1-72a4-4f29-b690-4c5b739062bb"),
                             Amount = 100m,
                             ContactName = "Iron Man",
                             Description = "Invoice for the first month",
@@ -81,7 +84,7 @@ namespace SoLoMo.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7aa0f424-0098-4b85-a0fd-f4dfc2cdcd3f"),
+                            Id = new Guid("6d920011-854b-4e12-95e7-e9bd1e0e61e8"),
                             Amount = 200m,
                             ContactName = "Captain America",
                             Description = "Invoice for the first month",
@@ -92,7 +95,7 @@ namespace SoLoMo.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f3ed0017-fb4a-4eca-b2f1-bf3c74970c22"),
+                            Id = new Guid("18fe43da-0aae-4cba-99fa-ba4db360e94b"),
                             Amount = 300m,
                             ContactName = "Thor",
                             Description = "Invoice for the first month",
@@ -152,7 +155,7 @@ namespace SoLoMo.Migrations
                     b.HasOne("SoLoMo.Models.Invoice", "Invoice")
                         .WithMany("InvoiceItems")
                         .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Invoice");

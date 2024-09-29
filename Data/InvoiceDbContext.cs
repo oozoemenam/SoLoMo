@@ -10,6 +10,10 @@ public class InvoiceDbContext : DbContext
     
     public DbSet<Invoice> Invoices => Set<Invoice>();
 
+    public DbSet<InvoiceItem> InvoiceItems => Set<InvoiceItem>();
+    
+    public DbSet<Contact> Contacts => Set<Contact>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Invoice>().HasData(

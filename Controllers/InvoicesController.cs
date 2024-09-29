@@ -30,10 +30,13 @@ namespace SoLoMo.Controllers
             InvoiceStatus? status = null
         )
         {
-            return await _context.Invoices.Where(x => status == null || x.Status == status)
+            return await _context.Invoices
+                .Include(x => x.InvoiceItems)
+                .Where(x => status == null || x.Status == status)
                 .OrderByDescending(x => x.InvoiceDate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                // .AsSplitQuery()
                 .ToListAsync();
         }
 
@@ -41,7 +44,9 @@ namespace SoLoMo.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Invoice>> GetInvoice(Guid id)
         {
-            var invoice = await _context.Invoices.FindAsync(id);
+            var invoice = await _context.Invoices
+                .Include(X => X.InvoiceItems)
+                .SingleOrDefaultAsync(x => x.Id == id);
 
             if (invoice == null)
             {

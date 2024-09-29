@@ -37,4 +37,6 @@ public class Invoice
     
     [Column(name: "Status", TypeName = "varchar(16)")]
     public InvoiceStatus Status { get; set; }
+
+    public List<InvoiceItem> InvoiceItems { get; set; } = new();
 }
