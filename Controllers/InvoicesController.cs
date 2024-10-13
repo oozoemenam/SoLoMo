@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SoLoMo.Data;
@@ -45,7 +40,7 @@ namespace SoLoMo.Controllers
         public async Task<ActionResult<Invoice>> GetInvoice(Guid id)
         {
             var invoice = await _context.Invoices
-                .Include(X => X.InvoiceItems)
+                .Include(x => x.InvoiceItems)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (invoice == null)
